@@ -1,16 +1,24 @@
 from Pages.BasePage import BasePage
-from ddt import data, unpack
-from selenium.webdriver.common.by import By
-from Config.configuration import TestData
-from Pages.BasePage import BasePage
-from utilities.utils import Utils
 
 class DashboardPage(BasePage):
+    button_addsubject.XPATH = "//div[@id='add-subject-cta-btn']"
+    button_createopensession.XPATH = "//div[contains(@class,'px-4 py-2 mx-auto text-center text-white rounded-md cursor-pointer lg:mx-0 text-md lg:min-w-32 lg:w-auto')][normalize-space()='Create Open Session']"
+    button_starttutoring.XPATH = "//div[contains(text(),'Start Tutoring')]"
+    button_addcourse.XPATH = "//div[contains(text(),'Add Course')]"
+    edit_profile.XPATH = "//a[text()='Edit Profile']"
+    view_profile.XPATH = "//a[@class='px-3 py-1 text-center text-white rounded-md cursor-pointer bg-unnamed_color text-md']"
+    invite_student.XPATH = "//button[contains(@class,'flex items-center mt-2 text-xs font-semibold focus:outline-none lg:text-sm text-green_color')]"
 
-    # Constructors of the page class
+
+
+
+
+
+
+
     def __init__(self, driver):
         super().__init__(driver)
-        self.driver.get(TestData.DASHBOARD_URL)
+        self.driver = driver
 
     # Page Actions """
 

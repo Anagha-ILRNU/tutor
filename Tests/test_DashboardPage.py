@@ -7,8 +7,7 @@ from ddt import ddt, data, file_data, unpack
 from utilities.utils import Utils
 
 
-@pytest.mark.usefixtures("setup")
-class Test_DashBoard(DashboardPage):
+class Test_DashBoard():
 
     #Pre Condition Buy plan
     def test_Buy_plan(self):
