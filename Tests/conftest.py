@@ -1,16 +1,16 @@
 import pytest
 from selenium import webdriver
-from Config.configuration import TestData
+from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 
-@pytest.fixture(params=["chrome"], scope='class')
-def init__driver(request):
-    if request.param == "chrome":
-        web_driver = webdriver.Chrome(executable_path=TestData.CHROME_EXECUTABLE_PATH)
-    if request.param == "firefox":
-        web_driver = webdriver.Firefox(executable_path=TestData.FIREFOX_EXECUTABLE_PATH)
-    if request.param == "edge":
-        web_driver = webdriver.Edge(executable_path=TestData.EDGE_EXECUTABLE_PATH)
-    request.cls.driver = web_driver
+@pytest.fixture(scope="class")
+def setup(request):
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    wait = WebDriverWait(driver, 10)
+    driver.get("https://uat.ilrnu.com/login")
+    driver.maximize_window()
+    request.cls.driver = driver
+    request.cls.wait = wait
     yield
-    web_driver.close()
+    driver.close()

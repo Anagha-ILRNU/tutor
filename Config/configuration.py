@@ -11,10 +11,12 @@ class TestData:
 
     MAIN_URL = "https://uat.ilrnu.com"
     BASE_URL = "https://uat.ilrnu.com/login"
-    DASHBOARD = "https://uat.ilrnu.com/dashboard"
+    DASHBOARD_URL = "https://uat.ilrnu.com/dashboard"
+    SUBJECT_URL = "https://uat.ilrnu.com/tutor/subject/add/page1"
 
-    LOGIN_PAGE_TITLE = "https://uat.ilrnu.com/login"
+    LOGIN_PAGE_TITLE = "Login page | @iLRNU"
     DASHBOARD_TITLE = "My Dashboard | @iLRNU"
+    TUTORPAGE_TITLE = "Tutors page | @iLRNU"
 
     EMAIL = "yatutor200@gmail.com"
     PASSWORD = "India@2020"
