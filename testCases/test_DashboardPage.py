@@ -1,30 +1,29 @@
 import pytest
-from Config.configuration import TestData
-from Pages.HomePage import HomePage
-from Tests.test_TutorLoginPage import Test_Login
-from Tests.test_base import BaseTest
-from ddt import ddt, data, file_data, unpack
-from utilities.utils import Utils
+from selenium import webdriver
+from pageObjects.DashboardPage import DashboardPage
 
 
-class Test_DashBoard():
-
-    #Pre Condition Buy plan
-    def test_Buy_plan(self):
-        buyplan = buyplan(self.driver)
-
-
-
-    def test_add_subject_added(self):
+class Test_002_DashBoard:
+    #  Pre Condition Buy plan
+    # def test_Buy_plan(self):
+    #     buyplan = buyplan(self.driver)
+    def test_login(self,setup):
+    def test_addSubject_Button(self):
         sub = SubjectPage(self.driver)
 
-    def test_Create_Open_Session(self):
+    def test_createOpenSession(self):
         sub = SubjectPage(self.driver)
 
-    def test_add_subject_added(self):
+    def test_startTutoring(self):
         sub = SubjectPage(self.driver)
 
-    def test_Create_Open_Session(self):
+    def test_addCourse(self):
+        sub = SubjectPage(self.driver)
+
+    def test_editProfile(self):
+        sub = SubjectPage(self.driver)
+
+    def test_viewProfile(self):
         sub = SubjectPage(self.driver)
 
 

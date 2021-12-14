@@ -2,7 +2,7 @@ import pytest
 from Config.configuration import TestData
 from Pages.HomePage import HomePage
 from Pages.addsubjectpage import SubjectPage
-from Tests.test_base import BaseTest
+from testCases.test_base import BaseTest
 from ddt import ddt, data, file_data, unpack
 from utilities.utils import Utils
 
