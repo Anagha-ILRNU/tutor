@@ -19,7 +19,6 @@ class LoginPage:
     tutor_logout = "//p[text()='Log out']"
 
     def __init__(self, driver):
-        super().__init__(driver)
         self.driver = driver
 
     def userProfile(self):

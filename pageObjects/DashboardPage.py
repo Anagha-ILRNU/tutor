@@ -1,4 +1,4 @@
-import pytest
+import time
 from selenium.webdriver.common.by import By
 
 
@@ -10,35 +10,55 @@ class DashboardPage:
     addcourse = "//div[contains(text(),'Add Course')]"
 
     # edit_XPATH
-    editprofile.XPATH = "//a[text()='Edit Profile']"
+    editprofile = "//a[text()='Edit Profile']"
 
     # View_XPATH
-    viewprofile.XPATH = "//a[@class='px-3 py-1 text-center text-white rounded-md cursor-pointer bg-unnamed_color text-md']"
+    viewprofile = "//a[@class='px-3 py-1 text-center text-white rounded-md cursor-pointer bg-unnamed_color text-md']"
 
     # Invite_XPATH
-    invitestudent.XPATH = "//button[contains(@class,'flex items-center mt-2 text-xs font-semibold focus:outline-none lg:text-sm text-green_color')]"
+    invitestudent = "//button[contains(@class,'flex items-center mt-2 text-xs font-semibold focus:outline-none lg:text-sm text-green_color')]"
 
     def __init__(self, driver):
-        super().__init__(driver)
         self.driver = driver
 
-    def addSubject(self):
-        self.driver.find_element(By.XPATH, self.addsubject.click())
+    def getSubject(self):
+        return self.driver.find_element(By.XPATH,self.addsubject)
 
-    def createOpenSession(self):
-        self.driver.find_element(By.XPATH, self.createopensession.click())
+    def clickSubject(self):
+        self.getSubject().click()
+        time.sleep(2)
 
-    def startTutoring(self):
-        self.driver.find_element(By.XPATH, self.starttutoring.click())
+    def clickCreateOpenSession(self):
+        self.driver.find_element(By.XPATH,self.createopensession).click()
+        time.sleep(2)
 
-    def addCourse(self):
-        self.driver.find_element(By.XPATH, self.addcourse.click())
+    # def clickCreateOpenSession(self):
+    #     self.getCreateOpenSession().click()
+    #     time.sleep(3)
+
+    def clickStartTutoring(self):
+        self.driver.find_element(By.XPATH,self.starttutoring).click()
+        time.sleep(2)
+
+    # def clickStartTutoring(self):
+    #     self.getStartTutoring().click()
+    #     time.sleep(3)
+
+    def clickCourse(self):
+        self.driver.find_element(By.XPATH,self.addcourse).click()
+        time.sleep(2)
+
+    # def clickCourse(self):
+    #     self.getCourse().click()
+    #     time.sleep(3)
 
     def editProfile(self):
-        self.driver.find_element(By.XPATH, self.editprofile.click())
+        self.driver.find_element(By.XPATH, self.editprofile).click()
+        time.sleep(2)
 
     def viewProfile(self):
-        self.driver.find_element(By.XPATH, self.viewprofile.click())
+        self.driver.find_element(By.XPATH, self.viewprofile).click()
+        time.sleep(2)
 
     # to check Sign Up Link
     # def is_buyplan_link_exist(self):

@@ -1,75 +1,110 @@
-import pytest
-from selenium import webdriver
 from pageObjects.DashboardPage import DashboardPage
+from pageObjects.TutorLoginPage import LoginPage
 
 
 class Test_002_DashBoard:
-    #  Pre Condition Buy plan
-    # def test_Buy_plan(self):
-    #     buyplan = buyplan(self.driver)
-    def test_login(self,setup):
-    def test_addSubject_Button(self):
-        sub = SubjectPage(self.driver)
+    loginURL = "https://uat.ilrnu.com/login/"
+    email = "yatutor200@gmail.com"
+    password = "India@2020"
 
-    def test_createOpenSession(self):
-        sub = SubjectPage(self.driver)
+    def test_addSubject(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.clickSubject()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Tutors page | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
 
-    def test_startTutoring(self):
-        sub = SubjectPage(self.driver)
+    def test_createOpenSession(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.clickCreateOpenSession()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Session creation page | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
 
-    def test_addCourse(self):
-        sub = SubjectPage(self.driver)
+    def test_startTutoring(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.clickStartTutoring()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Messages page | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
 
-    def test_editProfile(self):
-        sub = SubjectPage(self.driver)
+    def test_addCourse(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.clickCourse()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Tutors page | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
 
-    def test_viewProfile(self):
-        sub = SubjectPage(self.driver)
+    def test_editProfile(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.editProfile()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "My Dashboard | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
 
-
-        #Add Subjects
-        #Create open session
-        #Start tutoring
-        #Add course
-        #Edit profile
-        #view profile
-        #invite your student
-
-
-        # lf.homepage = HomePage(self.driver)
-        # title = self.loginpage.get_title(TestData.TUTORPAGE_TITLE)
-        # assert title == TestData.TUTORPAGE_TITLE
-
-    # def test_create_session_home_page(self):
-    #     self.homepage = HomePage(self.driver)
-    #     title = self.loginpage.get_title(TestData.LOGIN_PAGE_TITLE)
-    #     assert title == TestData.LOGIN_PAGE_TITLE
-
-    # def start_tutoring_home_page(self):
-    #     return self.is_visible(self.SIGNUP_LINK)
-    #
-    # # To Add Courses
-    # def add_courses_home_page(self):
-    #     return self.is_visible(self.SIGNUP_LINK)
-    #
-    # # To view Profile
-    # def view_profile_home_page(self):
-    #     return self.is_visible(self.SIGNUP_LINK)
-    #
-    # # To Edit Profile in home page
-    # def edit_profile_home_page(self):
-    #     return self.is_visible(self.SIGNUP_LINK)
-
-    # def test_login_succesfully(self, Email, Password):
-    #     self.loginPage = LoginPage(self.driver)
-    #     self.loginpage.do_login()
-    #
-    # def test_validate_dashboard_title(self):
-    #     self.homepage = HomePage(self.driver)
-    #     title = self.loginpage.get_title(TestData.DASHBOARD_TITLE)
-    #     assert title == TestData.DASHBOARD_TITLE
-    #
-    # def test_add_subject_enabled(self):
-    #     self.homepage = HomePage(self.driver)
-    #     flag = self.homepage.is_add_subject.is_enabled()
-    #     assert flag
+    def test_viewProfile(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.enterEmail(self.email)
+        self.lp.enterPassword(self.password)
+        self.lp.entertutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.viewProfile()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Alankar Yogeshwaran | Tutor @ iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
