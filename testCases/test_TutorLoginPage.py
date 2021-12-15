@@ -3,7 +3,7 @@ from selenium import webdriver
 from pageObjects.TutorLoginPage import LoginPage
 
 
-class Test_001_Login:
+class Tutor_Login:
     loginURL = "https://uat.ilrnu.com/login/"
     email = "yatutor200@gmail.com"
     password = "India@2020"
