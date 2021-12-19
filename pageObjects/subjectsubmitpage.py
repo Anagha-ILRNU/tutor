@@ -1,9 +1,8 @@
 from selenium.webdriver.common.by import By
 
 
-class SubmitResult(BasePage):
+class SubmitResult:
     def __init__(self,driver):
-        super().__init__(driver)
         self.driver = driver
 
     # Locators

@@ -10,7 +10,7 @@ class TestData:
     EDGE_EXECUTABLE_PATH = "P:/Student_iLRNU/Config/Web Browser/msedgedriver.exe"
 
     MAIN_URL = "https://uat.ilrnu.com"
-    BASE_URL = "https://uat.ilrnu.com/login"
+    LOGIN_URL = "https://uat.ilrnu.com/login"
     DASHBOARD_URL = "https://uat.ilrnu.com/dashboard"
     SUBJECT_URL = "https://uat.ilrnu.com/tutor/subject/add/page1"
 

@@ -1,8 +1,10 @@
+import time
+
 from pageObjects.DashboardPage import DashboardPage
 from pageObjects.TutorLoginPage import LoginPage
 
 
-class Test_002_DashBoard:
+class Test_DashBoardPage:
     loginURL = "https://uat.ilrnu.com/login/"
     email = "yatutor200@gmail.com"
     password = "India@2020"
@@ -11,9 +13,9 @@ class Test_002_DashBoard:
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.clickSubject()
         act_title = self.driver.title
@@ -24,13 +26,13 @@ class Test_002_DashBoard:
             assert False
         self.driver.close()
 
-    def test_createOpenSession(self, setup):
+    def test_createOpenSession(self,setup):
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.clickCreateOpenSession()
         act_title = self.driver.title
@@ -41,13 +43,13 @@ class Test_002_DashBoard:
             assert False
         self.driver.close()
 
-    def test_startTutoring(self, setup):
+    def test_startTutoring(self,setup):
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.clickStartTutoring()
         act_title = self.driver.title
@@ -58,13 +60,13 @@ class Test_002_DashBoard:
             assert False
         self.driver.close()
 
-    def test_addCourse(self, setup):
+    def test_addCourse(self,setup):
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.clickCourse()
         act_title = self.driver.title
@@ -75,13 +77,13 @@ class Test_002_DashBoard:
             assert False
         self.driver.close()
 
-    def test_editProfile(self, setup):
+    def test_editProfile(self,setup):
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.editProfile()
         act_title = self.driver.title
@@ -92,13 +94,13 @@ class Test_002_DashBoard:
             assert False
         self.driver.close()
 
-    def test_viewProfile(self, setup):
+    def test_viewProfile(self,setup):
         self.driver = setup
         self.driver.get(self.loginURL)
         self.lp = LoginPage(self.driver)
-        self.lp.enterEmail(self.email)
-        self.lp.enterPassword(self.password)
-        self.lp.entertutorLoginSubmit()
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
         self.dp = DashboardPage(self.driver)
         self.dp.viewProfile()
         act_title = self.driver.title
