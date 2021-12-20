@@ -10,7 +10,7 @@ class Test_Tutor_Login:
     email = "yatutor200@gmail.com"
     password = "India@2020"
 
-    @pytest.mark.sanity
+    # @pytest.mark.sanity
     def test_LoginPageTitle(self, setup):
         self.driver = setup
         self.driver.get(self.loginURL)
@@ -21,7 +21,7 @@ class Test_Tutor_Login:
         else:
             assert False
 
-    @pytest.mark.sanity
+    # @pytest.mark.sanity
     def test_tutorLogin(self, setup):
         self.driver = setup
         self.driver.get(self.loginURL)
