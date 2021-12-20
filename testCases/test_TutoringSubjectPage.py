@@ -1,12 +1,28 @@
-import pytest
-from Config.configuration import TestData
-from Pages.HomePage import HomePage
-from Pages.addsubjectpage import SubjectPage
-from testCases.test_base import BaseTest
-from ddt import ddt, data, file_data, unpack
-from utilities.utils import Utils
+from pageObjects.DashboardPage import DashboardPage
+from pageObjects.TutorLoginPage import LoginPage
 
-@pytest.mark.usefixtures("setup")
+
+
 class Add_Subject:
-    def test_add_subject_added(self):
-        sp = SubjectPage(self.driver)
+    loginURL = "https://uat.ilrnu.com/login/"
+    email = "yatutor200@gmail.com"
+    password = "India@2020"
+
+
+
+    def test_addSubject(self, setup):
+        self.driver = setup
+        self.driver.get(self.loginURL)
+        self.lp = LoginPage(self.driver)
+        self.lp.setEmail(self.email)
+        self.lp.setPassword(self.password)
+        self.lp.clickTutorLoginSubmit()
+        self.dp = DashboardPage(self.driver)
+        self.dp.clickSubject()
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "Tutors page | @iLRNU":
+            assert True
+        else:
+            assert False
+        self.driver.close()
