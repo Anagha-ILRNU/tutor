@@ -1,7 +1,4 @@
-import time
-
 import pytest
-
 from pageObjects.DashboardPage import DashboardPage
 from pageObjects.TutorLoginPage import LoginPage
 

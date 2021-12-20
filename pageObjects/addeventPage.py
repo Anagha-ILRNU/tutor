@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-class AddEventPage:
+class AddEventsPage:
     ####### UserProfile_Button_XPATH ###### Repeated function XPATH
 
     clickuserprofileicon = "//*[name()='svg' and @data-icon='user-circle']"
@@ -17,7 +17,7 @@ class AddEventPage:
 
     ############ Event Tab in Dashboard ###########
 
-    eventtab = 'event-top-nav'
+    eventtab = "(//h2[normalize-space()='Events'])[1]"
 
     ########### Add Event Button ################
 
@@ -35,12 +35,12 @@ class AddEventPage:
     eventstarttime = "//input[@placeholder='Start Time']"
     Hourstarttime = "//body[1]/div[5]/div[1]/div[1]/input[1]"
     Minstarttime = "//body/div[5]/div[1]/div[2]/input[1]"
-    Start_AMPM = "//body/div[5]/div[1]/span[2]"
+    StartAMPM = "//body/div[5]/div[1]/span[2]"
     # Event Endtime in Events Tab
     eventendtime = "//input[@placeholder='End Time']"
     Hourendtime = "//body[1]/div[6]/div[1]/div[1]/input[1]"
     Minendtime = "//body[1]/div[6]/div[1]/div[2]/input[1]"
-    End_AMPM = "//body[1]/div[6]/div[1]/span[2]"
+    EndAMPM = "//body[1]/div[6]/div[1]/span[2]"
     #### Event description #####
     # Find Top Frame
     top_frame = "//iframe[@class='tox-edit-area__iframe']"
@@ -79,14 +79,15 @@ class AddEventPage:
 
     ##### Event Tab_XPATH #########
     def eventtab_clk(self):
-        eventtab_click = self.driver.find_element(By.ID, self.eventtab)
-        eventtab_click.click()
+        eventtab = self.driver.find_element(By.XPATH, self.eventtab)
+        eventtab.click()
 
     ###### Add Event button_XPATH ##########
 
     def addevent_button(self):
         addevent_button = self.driver.find_element(By.XPATH, self.addevent)
         addevent_button.click()
+        time.sleep(10)
 
     # uploadpicture = "P:\Student_iLRNU\Testdata\Maths.jpg"addevent
 
@@ -98,11 +99,7 @@ class AddEventPage:
         online_txtbox = self.driver.find_element(By.XPATH, self.online)
         online_txtbox.click()
         eventcategory_dropdown = self.driver.find_element(By.XPATH, self.eventcategory)
-        eventname_txtbox = self.driver.find_element(By.XPATH, self.eventname)
-        eventname_txtbox.send_keys(self.eventname)
-        event_date = self.driver.find_element(By.XPATH, self.eventdate)
-        event_date.click()
-        # Event Starttime in Events Tab
+                # Event Starttime in Events Tab
         eventstart_time = self.driver.find_element(By.XPATH, self.eventstarttime)
         eventstart_time.click()
         Hourstart_time = self.driver.find_element(By.XPATH, self.Hourstarttime)
@@ -110,7 +107,7 @@ class AddEventPage:
         Minstart_time = self.driver.find_element(By.XPATH, self.Minstarttime)
         Minstart_time.send_keys(self.Minstarttime)
         Start_AMPM = self.driver.find_element(By.XPATH, self.Start_AM)
-        Start_AMPM.send_keys(self.eventAMPM)
+        tart_AMPM.send_keys(self.eventAMPM)
         # Event Endtime in Events Tab
         eventend_time = self.driver.find_element(By.XPATH, self.eventendtime)
         eventend_time.click()
@@ -136,8 +133,18 @@ class AddEventPage:
         event_picture = self.driver.find_element(By.XPATH, self.eventpic)
         event_picture.send_keys(self.picture)
         ##### Checkbox Selection #####
+
         checkbox_eventpublic = self.driver.find_element(By.XPATH, self.eventpubliccheckbox)
         checkbox_eventpublic.click()
+
+    def eventname_txtbox(self,eventname):
+        time.sleep(2)
+        entereventname = self.driver.find_element(By.XPATH, self.eventname)
+        entereventname.send_keys(eventname)
+
+    def event_date(self):
+         enterevent_date = self.driver.find_element(By.XPATH, self.eventdate)
+         enterevent_date.click()
 
     def publish_button(self):
         saveevent_button = self.driver.find_element(By.XPATH, self.saveevent)
