@@ -37,7 +37,7 @@ class LoginPage:
     #     # time.sleep(3)
 
     def setEmail(self, email):
-        #time.sleep(3)
+        # time.sleep(3)
         set_Email = self.driver.find_element(By.XPATH, self.email)  # getEmail_Field)
         set_Email.send_keys(email)
 
@@ -47,8 +47,8 @@ class LoginPage:
     #     # time.sleep(3)
 
     def setPassword(self, password):
-        #time.sleep(3)
-        set_Password = self.driver.find_element(By.XPATH, self.password) # getPassword_Field)
+        # time.sleep(3)
+        set_Password = self.driver.find_element(By.XPATH, self.password)  # getPassword_Field)
         set_Password.send_keys(password)
 
     def clickTutorLoginSubmit(self):

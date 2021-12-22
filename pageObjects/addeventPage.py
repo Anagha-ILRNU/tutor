@@ -1,9 +1,15 @@
 import time
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 
 
 class AddEventsPage:
+    # log = cl.customLogger(logging.DEBUG)
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    # Locators
+
     ####### UserProfile_Button_XPATH ###### Repeated function XPATH
 
     clickuserprofileicon = "//*[name()='svg' and @data-icon='user-circle']"
@@ -11,9 +17,9 @@ class AddEventsPage:
 
     ###### Tutor_Login_XPATH ########## Repeated function XPATH
 
-    inputemail = "//input[@placeholder='Your mail id']"
-    inputpassword = "//input[@placeholder='Enter password']"
-    submitlogin = " //button[@type='submit']"
+    email = "//input[@placeholder='Your mail id']"
+    password = "//input[@placeholder='Enter password']"
+    submit_button = " //button[@type='submit']"
 
     ############ Event Tab in Dashboard ###########
 
@@ -33,19 +39,18 @@ class AddEventsPage:
     eventdate = "//*[@placeholder='Start Date']"
     # Event Starttime in Events Tab
     eventstarttime = "//input[@placeholder='Start Time']"
-    Hourstarttime = "//body[1]/div[5]/div[1]/div[1]/input[1]"
-    Minstarttime = "//body/div[5]/div[1]/div[2]/input[1]"
-    StartAMPM = "//body/div[5]/div[1]/span[2]"
+    Hourstarttime = "(//input[@aria-label='Hour'])[1]"
+    Minstarttime = "(//input[@aria-label='Minute'])[1]"
+    StartAMPM = "(//span[@title='Click to toggle'][normalize-space()='PM'])[1]"
     # Event Endtime in Events Tab
     eventendtime = "//input[@placeholder='End Time']"
     Hourendtime = "//body[1]/div[6]/div[1]/div[1]/input[1]"
     Minendtime = "//body[1]/div[6]/div[1]/div[2]/input[1]"
     EndAMPM = "//body[1]/div[6]/div[1]/span[2]"
-    #### Event description #####
-    # Find Top Frame
+
     top_frame = "//iframe[@class='tox-edit-area__iframe']"
     mce_edit = "//body[@class='mce-content-body ']"
-    eventpic = "//*[@id='event-images']"
+    eventpic = "(//label[normalize-space()='Select file'])[1]"
     picture = "P:\iLRNU application\Testdata\Maths.jpg"
     eventpubliccheckbox = "//input[@class='w-5 h-5 sm:w-6 sm:h-6']"
 
@@ -56,95 +61,181 @@ class AddEventsPage:
     Publishevent = "//button[text()='Publish']"
     submitevent = "//button[text()='Submit']"
 
-    ######### Action items for Addeventpage  ##########
+    # Selectors
+    def getProfileIcon(self):
+        return self.driver.find_element(By.XPATH, self.clickuserprofileicon)
 
-    def __init__(self, driver):
-        self.driver = driver
+    def getLoginIcon(self):
+        return self.driver.find_element(By.XPATH, self.clickloginicon)
 
-    def profileIcon(self):
-        userprofile_field = self.driver.find_element(By.XPATH, self.clickuserprofileicon)
-        userprofile_field.click()
-        login_field = self.driver.find_element(By.XPATH, self.clickloginicon)
-        login_field.click()
+    def getEmailField(self):
+        return self.driver.find_element(By.XPATH, self.email)
 
-    ###### TutorLogin_Textbox_XPATH ##########
+    def getPasswordField(self):
+        return self.driver.find_element(By.XPATH, self.password)
 
-    def tutorlogin(self, email, password):
-        inputemail = self.driver.find_element(By.XPATH, "//input[@placeholder='Your mail id']")
-        inputemail.send_keys(email)
-        inputpassword = self.driver.find_element(By.XPATH, "//input[@placeholder='Enter password']")
-        inputpassword.send_keys(password)
-        submitlogin = self.driver.find_element(By.XPATH, "//button[@type='submit']")
-        submitlogin.click()
+    def getLoginButton(self):
+        return self.driver.find_element(By.XPATH, self.submit_button)
 
-    ##### Event Tab_XPATH #########
-    def eventtab_clk(self):
-        eventtab = self.driver.find_element(By.XPATH, self.eventtab)
-        eventtab.click()
+    def getEventTab(self):
+        return self.driver.find_element(By.XPATH, self.eventtab)
 
-    ###### Add Event button_XPATH ##########
+    def getAddEventButton(self):
+        return self.driver.find_element(By.XPATH, self.addevent)
 
-    def addevent_button(self):
-        addevent_button = self.driver.find_element(By.XPATH, self.addevent)
-        addevent_button.click()
-        time.sleep(10)
+    def getOnlineRadioButton(self):
+        return self.driver.find_element(By.XPATH, self.online)
 
-    # uploadpicture = "P:\Student_iLRNU\Testdata\Maths.jpg"addevent
+    def getOffLineRadioButton(self):
+        return self.driver.find_element(By.XPATH, self.offline)
+
+    def getEnterNameField(self):
+        return self.driver.find_element(By.XPATH, self.eventname)
+
+    def getPictureField(self):
+        return self.driver.find_element(By.XPATH, self.eventpic)
+
+    # def uploadPic(self):
+    #     return self.driver.find_element(By.XPATH, self.picture)
+
+    def getEventStartTime(self):
+        return self.driver.find_element(By.XPATH, self.eventstarttime)
+
+    def getHourStartTime(self):
+        return self.driver.find_element(By.XPATH, self.Hourstarttime)
+
+    def getMinStartTime(self):
+        return self.driver.find_element(By.XPATH, self.Minstarttime)
+
+    def getStartAMPM(self):
+        return self.driver.find_element(By.XPATH, self.StartAMPM)
+
+    def getEventEndTime(self):
+        return self.driver.find_element(By.XPATH, self.eventendtime)
+
+    def getHourEndTime(self):
+        return self.driver.find_element(By.XPATH, self.Hourendtime)
+
+    def getMinEndTime(self):
+        return self.driver.find_element(By.XPATH, self.Minendtime)
+
+    def getEndAMPM(self):
+        return self.driver.find_element(By.XPATH, self.EndAMPM)
+
+    def getEventdate(self):
+        return self.driver.find_element(By.XPATH, self.eventdate)
+
+    def getPublicCheckbox(self):
+        return self.driver.find_element(By.XPATH, self.eventpubliccheckbox)
+
+    def getTopFrame(self):
+        topframe = self.driver.find_element(By.XPATH, self.top_frame)
+        self.driver.switch_to.frame(topframe)
+
+    # def switchTopFrame(self):
+    #     self.driver.switch_to.frame(self.getTopFrame)
+
+    # def setTopFrame(self, top_frame):
+
+    def getMceEdit(self, eventdescription):
+        mce_edit1 = self.driver.find_element(By.XPATH, self.mce_edit)
+        mce_edit1.clear()
+        mce_edit1.send_keys(eventdescription)
+
+        # mce_edit.send_keys(eventdescription)
+
+    # def setMceEdit(self,eventdescription):
+    #     mce_edit1.send_keys(eventdescription)
+    #     self.driver.switch_to.default_content()
+
+    def switchToDefault(self):
+        self.driver.switch_to.default_content()
+
+    def clickProfileIcon(self):
+        self.getLoginIcon().click()
+
+    def clickLoginicon(self):
+        self.getLoginIcon().click()
+
+    def enterEmail(self, email):
+        self.getEmailField.send_keys(email)
+        self.log.info("entered email: " + email)
+
+    def enterPassword(self, password):
+        self.getPasswordField().send_keys(password)
+        self.log.info("entered password: " + password)
+
+    def clickLoginButton(self):
+        self.getLoginButton.click()
+        self.log.info("clicked on login button")
+
+    def clickEventTab(self):
+        self.getEventTab().click()
+        # self.log.info("clicked on Event tab")
+
+    def clickAddEventButton(self):
+        self.getAddEventButton().click()
+        # self.log.info("clicked on Event button")
 
     ####### Event information ################# ########### Check the scenario for offline ###########
+    def selectOnline(self):
+        self.getOnlineRadioButton.click()
+        # self.log.info("selected online")
 
-    def event_information(self):
-        offline_txtbox = self.driver.find_element(By.XPATH, self.offline)
-        offline_txtbox.click()
-        online_txtbox = self.driver.find_element(By.XPATH, self.online)
-        online_txtbox.click()
-        eventcategory_dropdown = self.driver.find_element(By.XPATH, self.eventcategory)
-                # Event Starttime in Events Tab
-        eventstart_time = self.driver.find_element(By.XPATH, self.eventstarttime)
-        eventstart_time.click()
-        Hourstart_time = self.driver.find_element(By.XPATH, self.Hourstarttime)
-        Hourstart_time.send_keys(self.Hourstarttime)
-        Minstart_time = self.driver.find_element(By.XPATH, self.Minstarttime)
-        Minstart_time.send_keys(self.Minstarttime)
-        Start_AMPM = self.driver.find_element(By.XPATH, self.Start_AM)
-        tart_AMPM.send_keys(self.eventAMPM)
-        # Event Endtime in Events Tab
-        eventend_time = self.driver.find_element(By.XPATH, self.eventendtime)
-        eventend_time.click()
-        Hourend_time = self.driver.find_element(By.XPATH, self.Hourendtime)
-        Hourend_time.send_keys(self.Hourendtime)
-        Minend_time = self.driver.find_element(By.XPATH, self.Minendtime)
-        Minend_time.send_keys(self.Minendtime)
-        End_AMPM = self.driver.find_element(By.XPATH, self.End_AM)
-        End_AMPM.send_keys(self.eventAMPM)
-        #### Event description #####
-        # Find Top Frame
-        top_frame1 = self.driver.find_element(By.XPATH, self.top_frame)
-        # Switch to top Frame
-        self.driver.switch_to.frame(top_frame1)
-        # edit tinymce frame
-        mce_edit1 = self.driver.find_element(By.XPATH, self.mce_edit)
-        # Switch to mce_frame
-        mce_edit1.clear()
-        self.mce_edit.send_keys(self.eventdescription)
-        # Back to Parent frame
-        self.driver.switch_to.default_content()
-        #### Upload picture####
-        event_picture = self.driver.find_element(By.XPATH, self.eventpic)
-        event_picture.send_keys(self.picture)
-        ##### Checkbox Selection #####
+    def selectOffline(self):
+        self.getoffLineRadioButton.click()
+        # self.log.info("selected offline")
 
-        checkbox_eventpublic = self.driver.find_element(By.XPATH, self.eventpubliccheckbox)
-        checkbox_eventpublic.click()
+    def enterEventName(self, eventname):
+        self.getEnterNameField().send_keys(eventname)
+        # self.log.info("entered eventname: " + eventname)
 
-    def eventname_txtbox(self,eventname):
-        time.sleep(2)
-        entereventname = self.driver.find_element(By.XPATH, self.eventname)
-        entereventname.send_keys(eventname)
+    def enterEventDate(self, eventdate):
+        self.getEventdate().click()
+        # self.getEventdate.send_keys(eventdate)
 
-    def event_date(self):
-         enterevent_date = self.driver.find_element(By.XPATH, self.eventdate)
-         enterevent_date.click()
+    def selectEventStartTime(self):
+        self.getEventStartTime().click()
+        # self.log.info("selected EventStartTime")
+
+    def enterGetHourStartTime(self, Hourstarttime):
+        self.getHourStartTime().send_keys(Hourstarttime)
+        # self.log.info("Entered Hourstarttime")
+
+    def enterGetMinStartTime(self, Minstarttime):
+        self.getMinStartTime().send_keys(Minstarttime)
+        # self.log.info("Entered Minstarttime")
+
+    def enterStartAMPM(self, StartAMPM):
+        self.getStartAMPM().send_keys(StartAMPM)
+        # self.log.info("Entered Start_AMPM")
+
+    def selectEventEndTime(self):
+        self.getEventEndTime().click()
+        # self.log.info("selected EventEndTime")
+
+    def enterGetHourEndTime(self, Hourendtime):
+        self.getHourEndTime().send_keys(Hourendtime)
+        # self.log.info("Entered Hourstarttime")
+
+    def enterGetMinEndTime(self, Minendtime):
+        self.getMinEndTime().send_keys(Minendtime)
+        # self.log.info("Entered Minstarttime")
+
+    def enterEndAMPM(self, EndAMPM):
+        self.getEndAMPM().send_keys(EndAMPM)
+        time.sleep(5)
+
+    def uploadpicture(self, picture):
+        self.getPictureField().click()
+        self.getPictureField().send_keys(picture)
+        # event_picture = self.driver.find_element(By.XPATH, self.eventpic)
+        # event_picture.send_keys(self.picture)
+
+    def clickCheckBox(self):
+        self.getPublicCheckbox().click()
+        # checkbox_eventpublic = self.driver.find_element(By.XPATH, self.eventpubliccheckbox)
+        # checkbox_eventpublic.click()
 
     def publish_button(self):
         saveevent_button = self.driver.find_element(By.XPATH, self.saveevent)
