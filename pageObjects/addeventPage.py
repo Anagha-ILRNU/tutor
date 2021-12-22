@@ -128,6 +128,8 @@ class AddEventsPage:
     def getPublicCheckbox(self):
         return self.driver.find_element(By.XPATH, self.eventpubliccheckbox)
 
+    # Action items
+
     def getTopFrame(self):
         topframe = self.driver.find_element(By.XPATH, self.top_frame)
         self.driver.switch_to.frame(topframe)
@@ -141,6 +143,7 @@ class AddEventsPage:
         mce_edit1 = self.driver.find_element(By.XPATH, self.mce_edit)
         mce_edit1.clear()
         mce_edit1.send_keys(eventdescription)
+        time.sleep(3)
 
         # mce_edit.send_keys(eventdescription)
 
@@ -224,11 +227,13 @@ class AddEventsPage:
 
     def enterEndAMPM(self, EndAMPM):
         self.getEndAMPM().send_keys(EndAMPM)
-        time.sleep(5)
 
-    def uploadpicture(self, picture):
-        self.getPictureField().click()
+    def uploadpicture(self):
+        self.getPictureField()
+
+    def uploadpicture1(self, picture):
         self.getPictureField().send_keys(picture)
+
         # event_picture = self.driver.find_element(By.XPATH, self.eventpic)
         # event_picture.send_keys(self.picture)
 

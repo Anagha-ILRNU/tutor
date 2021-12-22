@@ -51,7 +51,6 @@ class Test_AddEvent:
             self.Expected = XLUtils.readData(self.path, 'Addevent', r, 13)
 
             self.ep.enterEventName(self.Eventname)
-
             self.ep.selectEventStartTime()
             self.ep.enterGetHourStartTime(self.EStarttimehour)
             self.ep.enterGetMinStartTime(self.EStarttimemin)
@@ -61,12 +60,13 @@ class Test_AddEvent:
             self.ep.enterGetMinEndTime(self.EEndtimemin)
             self.ep.enterEndAMPM(self.AMPM)
             self.ep.clickCheckBox()
+            # self.ep.selectFile()
+            self.ep.uploadpicture()
+            self.ep.uploadpicture1(self.Picture)
+            # self.ep.enterEventDate(self.Eventdate)
             self.ep.getTopFrame()
             # self.ep.switchTopFrame()
             self.ep.getMceEdit(self.Eventdescription)
-            # self.ep.selectFile()
-            self.ep.uploadpicture(self.Picture)
-            # self.ep.enterEventDate(self.Eventdate)
 
             time.sleep(5)
 
