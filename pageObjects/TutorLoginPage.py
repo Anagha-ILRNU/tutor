@@ -20,6 +20,29 @@ class LoginPage:
     user_profile1 = "//img[@class='w-8 h-8 rounded-full xxl:w-full xxl:h-full'] "
     tutor_logout = "//p[text()='Log out']"
 
+    # logingmail = "(//button[normalize-space()='Login with gmail'])[1]".click()
+    # useanotheraccount = "//div[@class='BHzsHc']".click()
+    # # gmailemail=
+    # # gmailpassword=
+    # # gmailsubmit=
+    # forgotpassword = "//div[contains(text(),'Forgot Password?')]"
+
+    # iframe for reset your password
+    enteremail = "//input[@id='email']"
+    top_frame = "//iframe[@role='presentation']"
+    checkbox = "//span[@role='checkbox']"
+    reset_button = "//button[normalize-space()='Send']"
+    back_sign = "//span[@class='ml-2 font-semibold cursor-pointer text-unnamed_color hover:underline']"
+
+    # def getTopFrame(self):
+    #     topframe = self.driver.find_element(By.XPATH, self.top_frame)
+    #     self.driver.switch_to.frame(topframe)
+    #
+    # def getcheckBox(self, eventdescription):
+    #     check_box = self.driver.find_element(By.XPATH, self.checkbox)
+    #     check_box.click()
+    #
+
     ######### Actions items for Tutor Login Page ###############
 
     def __init__(self, driver):
@@ -53,12 +76,24 @@ class LoginPage:
 
     def clickTutorLoginSubmit(self):
         self.driver.find_element(By.XPATH, self.tutor_login_submit).click()
-        time.sleep(5)
 
     def userProfile1(self):
         self.driver.find_element(By.XPATH, self.user_profile1).click()
-        time.sleep(5)
 
     def tutorLogout(self):
         self.driver.find_element(By.XPATH, self.tutor_logout).click()
-        time.sleep(5)
+
+    def signInGmail(self):
+        self.driver.find_element(By.XPATH, self.logingmail).click()
+
+    def useAnotherAccount(self):
+        self.driver.find_element(By.XPATH, self.useanotheraccount).click()
+
+    def gmailEmail(self):
+        self.driver.find_element(By.XPATH, self.gmailemail).click()
+
+    def gmailPassword(self):
+        self.driver.find_element(By.XPATH, self.gmailpassword).click()
+
+    def gmailSubmit(self):
+        self.driver.find_element(By.XPATH, self.gmailsubmit).click()

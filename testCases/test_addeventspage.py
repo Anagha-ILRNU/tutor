@@ -1,12 +1,9 @@
 import time
-
-from selenium.webdriver.common.by import By
-
 from pageObjects.TutorLoginPage import LoginPage
 from pageObjects.addeventPage import AddEventsPage
 from utilities import XLUtils
 from utilities.readproperties import ReadConfig
-import unittest
+from selenium.webdriver.common.keys import Keys
 
 
 #### Addevent,edit,delete,report,completed event)
@@ -51,6 +48,9 @@ class Test_AddEvent:
             self.Expected = XLUtils.readData(self.path, 'Addevent', r, 13)
 
             self.ep.enterEventName(self.Eventname)
+            self.ep.getEventCategory()
+            self.ep.selectFile()
+            self.ep.uploadPicture(self.Picture)
             self.ep.selectEventStartTime()
             self.ep.enterGetHourStartTime(self.EStarttimehour)
             self.ep.enterGetMinStartTime(self.EStarttimemin)
@@ -60,15 +60,14 @@ class Test_AddEvent:
             self.ep.enterGetMinEndTime(self.EEndtimemin)
             self.ep.enterEndAMPM(self.AMPM)
             self.ep.clickCheckBox()
-            # self.ep.selectFile()
-            self.ep.uploadpicture()
-            self.ep.uploadpicture1(self.Picture)
+
+
             # self.ep.enterEventDate(self.Eventdate)
             self.ep.getTopFrame()
             # self.ep.switchTopFrame()
             self.ep.getMceEdit(self.Eventdescription)
+            time.sleep(10)
 
-            time.sleep(5)
 
             act_title = self.driver.title
             Expected_title = "Events page | @iLRNU"
@@ -76,6 +75,11 @@ class Test_AddEvent:
             if act_title == Expected_title:
                 if self.exp == "Pass":
                     self.lp.tutor_logout();
+
+    # def test_editEvent(self, setup):
+    # def test_deleteEvent(self,setup):
+    # def test_reportEvent(self,setup):
+    # def test_showMoreLess(self,setup):
 
 # add events
 # Edit events

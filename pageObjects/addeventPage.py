@@ -1,5 +1,8 @@
 import time
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 
 
 class AddEventsPage:
@@ -33,8 +36,10 @@ class AddEventsPage:
 
     offline = "//button[text()='Offline']"
     online = "//button[text()='Online']"
-    # uploadpicture = "P:\Student_iLRNU\Testdata\Maths.jpg"
-    eventcategory = "//div[@class='flex items-center justify-between py-2 px-4  border rounded-lg border-primary py-4 border-gray-400']"
+
+    eventcategory = "//div[normalize-space()='Sports']"
+    category = "(//div[@class='capitalize text-gray-500 font-semibold'])[1]"
+
     eventname = "//input[@placeholder='Enter your event name']"
     eventdate = "//*[@placeholder='Start Date']"
     # Event Starttime in Events Tab
@@ -44,14 +49,14 @@ class AddEventsPage:
     StartAMPM = "(//span[@title='Click to toggle'][normalize-space()='PM'])[1]"
     # Event Endtime in Events Tab
     eventendtime = "//input[@placeholder='End Time']"
-    Hourendtime = "//body[1]/div[6]/div[1]/div[1]/input[1]"
-    Minendtime = "//body[1]/div[6]/div[1]/div[2]/input[1]"
-    EndAMPM = "//body[1]/div[6]/div[1]/span[2]"
+    Hourendtime = "(//input[@aria-label='Hour'])[2]"
+    Minendtime = "(//input[@aria-label='Minute'])[2]"
+    EndAMPM = "(//span[@title='Click to toggle'][normalize-space()='PM'])[2]"
 
     top_frame = "//iframe[@class='tox-edit-area__iframe']"
     mce_edit = "//body[@class='mce-content-body ']"
-    eventpic = "(//label[normalize-space()='Select file'])[1]"
-    picture = "P:\iLRNU application\Testdata\Maths.jpg"
+    uploadfile = "//label[normalize-space()='Select file']"
+    Picture = './testdata/Maths.jpg'
     eventpubliccheckbox = "//input[@class='w-5 h-5 sm:w-6 sm:h-6']"
 
     ###### Save-Preview-back- button #####################
@@ -83,6 +88,9 @@ class AddEventsPage:
     def getAddEventButton(self):
         return self.driver.find_element(By.XPATH, self.addevent)
 
+    # def getPicture(self):
+    #     return self.driver.find_element(By.XPATH,self.picture)
+
     def getOnlineRadioButton(self):
         return self.driver.find_element(By.XPATH, self.online)
 
@@ -92,11 +100,12 @@ class AddEventsPage:
     def getEnterNameField(self):
         return self.driver.find_element(By.XPATH, self.eventname)
 
-    def getPictureField(self):
-        return self.driver.find_element(By.XPATH, self.eventpic)
-
-    # def uploadPic(self):
-    #     return self.driver.find_element(By.XPATH, self.picture)
+    def getEventCategory(self):
+        # identify element
+        category = self.driver.find_element(By.XPATH, self.category)
+        achains = ActionChains(self.driver)
+        achains.move_to_element(category).perform()
+        self.driver.find_element(By.XPATH, self.eventcategory).click()
 
     def getEventStartTime(self):
         return self.driver.find_element(By.XPATH, self.eventstarttime)
@@ -134,25 +143,31 @@ class AddEventsPage:
         topframe = self.driver.find_element(By.XPATH, self.top_frame)
         self.driver.switch_to.frame(topframe)
 
-    # def switchTopFrame(self):
-    #     self.driver.switch_to.frame(self.getTopFrame)
-
-    # def setTopFrame(self, top_frame):
-
     def getMceEdit(self, eventdescription):
         mce_edit1 = self.driver.find_element(By.XPATH, self.mce_edit)
         mce_edit1.clear()
         mce_edit1.send_keys(eventdescription)
-        time.sleep(3)
-
-        # mce_edit.send_keys(eventdescription)
-
-    # def setMceEdit(self,eventdescription):
-    #     mce_edit1.send_keys(eventdescription)
-    #     self.driver.switch_to.default_content()
+        time.sleep(5)
 
     def switchToDefault(self):
         self.driver.switch_to.default_content()
+
+    # def selectFile(self):
+    #     return self.getPictureField().click()
+
+    def selectFile(self):
+        self.driver.find_element(By.XPATH, self.uploadfile).click()
+        # select_File.click()
+        # time.sleep(2)
+        # picture.send_keys(Picture)
+        # picture.click()
+
+    def uploadPicture(self,Picture):
+        self.selectFile.send_keys(Picture)
+        self.selectFile.click()
+
+        # self.driver.find_element(By.XPATH, self.eventcategory).click()
+        # time.sleep(3)
 
     def clickProfileIcon(self):
         self.getLoginIcon().click()
@@ -227,15 +242,6 @@ class AddEventsPage:
 
     def enterEndAMPM(self, EndAMPM):
         self.getEndAMPM().send_keys(EndAMPM)
-
-    def uploadpicture(self):
-        self.getPictureField()
-
-    def uploadpicture1(self, picture):
-        self.getPictureField().send_keys(picture)
-
-        # event_picture = self.driver.find_element(By.XPATH, self.eventpic)
-        # event_picture.send_keys(self.picture)
 
     def clickCheckBox(self):
         self.getPublicCheckbox().click()
