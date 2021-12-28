@@ -55,8 +55,8 @@ class AddEventsPage:
 
     top_frame = "//iframe[@class='tox-edit-area__iframe']"
     mce_edit = "//body[@class='mce-content-body ']"
-    uploadfile = "//label[normalize-space()='Select file']"
-    Picture = './testdata/Maths.jpg'
+    uploadfile = "//input[@id='event-images']"
+    Picture = "P:\\iLRNU application\\Testdata\\Maths.jpg"
     eventpubliccheckbox = "//input[@class='w-5 h-5 sm:w-6 sm:h-6']"
 
     ###### Save-Preview-back- button #####################
@@ -154,20 +154,27 @@ class AddEventsPage:
 
     # def selectFile(self):
     #     return self.getPictureField().click()
+    #
+    # return self.driver.find_element(By.XPATH, self.eventdate)
 
     def selectFile(self):
-        self.driver.find_element(By.XPATH, self.uploadfile).click()
-        # select_File.click()
-        # time.sleep(2)
-        # picture.send_keys(Picture)
-        # picture.click()
+        file = self.driver.find_element(By.XPATH, self.uploadfile)
+        file.send_keys(self.Picture)
 
-    def uploadPicture(self,Picture):
-        self.selectFile.send_keys(Picture)
-        self.selectFile.click()
+        #     click()
+        # file.selectFile().send_keys(Picture)
+        # file.selectFile().click()
+        # # select_File.click()
+        # # time.sleep(2)
+        # # picture.send_keys(Picture)
+        # # picture.click()
 
-        # self.driver.find_element(By.XPATH, self.eventcategory).click()
-        # time.sleep(3)
+    # def uploadPicture(self, Picture):
+    #     selectFile.send_keys(Picture)
+    #     selectFile.click()
+
+    # self.driver.find_element(By.XPATH, self.eventcategory).click()
+    # time.sleep(3)
 
     def clickProfileIcon(self):
         self.getLoginIcon().click()

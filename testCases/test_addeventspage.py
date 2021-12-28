@@ -1,4 +1,7 @@
 import time
+
+from selenium.webdriver.common.by import By
+
 from pageObjects.TutorLoginPage import LoginPage
 from pageObjects.addeventPage import AddEventsPage
 from utilities import XLUtils
@@ -49,8 +52,8 @@ class Test_AddEvent:
 
             self.ep.enterEventName(self.Eventname)
             self.ep.getEventCategory()
-            self.ep.selectFile()
-            self.ep.uploadPicture(self.Picture)
+
+            # self.ep.uploadPicture(self.Picture)
             self.ep.selectEventStartTime()
             self.ep.enterGetHourStartTime(self.EStarttimehour)
             self.ep.enterGetMinStartTime(self.EStarttimemin)
@@ -60,14 +63,14 @@ class Test_AddEvent:
             self.ep.enterGetMinEndTime(self.EEndtimemin)
             self.ep.enterEndAMPM(self.AMPM)
             self.ep.clickCheckBox()
-
+            self.ep.selectFile()
 
             # self.ep.enterEventDate(self.Eventdate)
             self.ep.getTopFrame()
             # self.ep.switchTopFrame()
             self.ep.getMceEdit(self.Eventdescription)
+            self.ep.switchToDefault()
             time.sleep(10)
-
 
             act_title = self.driver.title
             Expected_title = "Events page | @iLRNU"
