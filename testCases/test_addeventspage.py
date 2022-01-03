@@ -1,7 +1,5 @@
 import time
-
 from selenium.webdriver.common.by import By
-
 from pageObjects.TutorLoginPage import LoginPage
 from pageObjects.addeventPage import AddEventsPage
 from utilities import XLUtils
@@ -64,6 +62,7 @@ class Test_AddEvent:
             self.ep.enterEndAMPM(self.AMPM)
             self.ep.clickCheckBox()
             self.ep.selectFile()
+            self.ep.eventDate()
 
             # self.ep.enterEventDate(self.Eventdate)
             self.ep.getTopFrame()

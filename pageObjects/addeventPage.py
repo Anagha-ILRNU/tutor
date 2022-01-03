@@ -41,7 +41,14 @@ class AddEventsPage:
     category = "(//div[@class='capitalize text-gray-500 font-semibold'])[1]"
 
     eventname = "//input[@placeholder='Enter your event name']"
+
+    # Date selection
     eventdate = "//*[@placeholder='Start Date']"
+    getmonth = "//option[text()='December']"
+    getyear = "//input[@min='2021']"
+    nextmonth = "//span[@class='flatpickr-next-month']//*[name()='svg']"
+    alldates = "//div[@class='flatpickr-days']/div[@class='dayContainer']"
+
     # Event Starttime in Events Tab
     eventstarttime = "//input[@placeholder='Start Time']"
     Hourstarttime = "(//input[@aria-label='Hour'])[1]"
@@ -152,29 +159,20 @@ class AddEventsPage:
     def switchToDefault(self):
         self.driver.switch_to.default_content()
 
-    # def selectFile(self):
-    #     return self.getPictureField().click()
-    #
-    # return self.driver.find_element(By.XPATH, self.eventdate)
+    def eventDate(self):
+        eventDate = self.driver.find_element(By.XPATH, self.eventdate).click()
+
+    def selectDate(self, eventdate):
+        eventdate = self.driver.find_elements(By.XPATH, self.alldates)
+        for date in eventdate:
+            if date.get_attribute("aria-label") != "January 22, 2022":
+                date.click()
+                time.sleep(3)
+                break
 
     def selectFile(self):
         file = self.driver.find_element(By.XPATH, self.uploadfile)
         file.send_keys(self.Picture)
-
-        #     click()
-        # file.selectFile().send_keys(Picture)
-        # file.selectFile().click()
-        # # select_File.click()
-        # # time.sleep(2)
-        # # picture.send_keys(Picture)
-        # # picture.click()
-
-    # def uploadPicture(self, Picture):
-    #     selectFile.send_keys(Picture)
-    #     selectFile.click()
-
-    # self.driver.find_element(By.XPATH, self.eventcategory).click()
-    # time.sleep(3)
 
     def clickProfileIcon(self):
         self.getLoginIcon().click()

@@ -3,12 +3,16 @@ from selenium.webdriver.common.by import By
 import time
 
 
-class SubjectPage:
+class AddSubjectPage:
+    # Add Subject in My Home page
+    addsubject = "//div[text()='Add Subject']"
+
     # Textbox - XPATH Tutoring - Subject Information page
+
     subjectname = "//input[@placeholder='Enter your subject name']"
     attend = "//input[@placeholder='eg beginner, 10th standard ']"
     tags = "//input[@class='w-full px-2 text-sm focus:outline-none ']"
-    individualprice = "//input[@placeholder='eg beginner, 10th standard ']"
+    individualprice = "//input[@placeholder='e.g: 500']"
     groupprice = "//input[@placeholder='e.g: 300']"
 
     # iFrame - XPATH Tutoring - Subject Information page
@@ -18,12 +22,14 @@ class SubjectPage:
     subjectdescription_mceedit1 = "//body[@class='mce-content-body ']"
 
     # Picture XPATH Tutoring - Subject Information page
-    subjectpicture = "//*[@id='event-images']"
-    picture = "C:\\Users\\yoges\\PycharmProjects\\ilrnu\\testdata\\Maths.jpg"
+    subjectpicture = "//input[@id='event-images']"
+    picture = "P:\\iLRNU application\\Testdata\\Maths.jpg"
 
     # Button -Tutoring - Subject Information page
     save = "//button[normalize-space()='Save']"
     preview = "//button[normalize-space()='Preview']"
+    submitsubject = "//button[@class='btn btn-bg-green focus:outline-none']"
+    backbutton = "//span[@class='hidden text-sm font-bold lg:text-base lg:flex']"
 
     # Dropdown XPATH -Tutoring - Subject Information page
     availability = "(//div[contains(@class,'border rounded-lg border-border_inputs undefined')])[1]"
@@ -38,8 +44,8 @@ class SubjectPage:
     saturaday = "(//label[@for='saturday-availability-6'])[1]"
 
     availability1 = "//h2[@class='mb-2 text-base font-bold is-imp']"
-    actions = ActionChains(self.driver)
-    actions.move_to_element(availability1).perform()
+    # actions = ActionChains(self.driver)
+    # actions.move_to_element(availability1).perform()
 
     # Index 0 XPATH - SUNDAY Start time selection
     index0StartClick = "(//input[@id='sunday-0-3'])[1]"
@@ -115,7 +121,7 @@ class SubjectPage:
     index5EndAMPM = "/html[1]/body[1]/div[29]/div[1]/span[2]"
 
     # index=6 XPATH - SATURDAY Start time selection
-    index6 = "(//label[@for='saturday-6-3'])[1]"
+    index6StartClick = "(//label[@for='saturday-6-3'])[1]"
     index6StarttimeHour = "(//input[contains(@aria-label,'Hour')])[13]"
     index6StarttimeMin = "(//input[contains(@aria-label,'Minute')])[13]"
     index6StartAMPM = "/html[1]/body[1]/div[32]/div[1]/span[2]"
@@ -129,15 +135,18 @@ class SubjectPage:
 
     # Price Selection XPATH
 
-    individualprice = "//input[@placeholder='e.g: 500']"
-    groupprice = "//input[@placeholder='e.g: 300']"
-
-    # Button XPATH
-    save = "//button[normalize-space()='Save']"
-    preview = "//button[normalize-space()='Preview']"
+    # individualprice = "//input[@placeholder='e.g: 500']"
+    # groupprice = "//input[@placeholder='e.g: 300']"
+    #
+    # # Button XPATH
+    # save = "//button[normalize-space()='Save']"
+    # preview = "//button[normalize-space()='Preview']"
 
     def __init__(self, driver):
         self.driver = driver
+
+    def clickaddSubject(self):
+        self.driver.find_element(By.XPATH, self.addsubject).click()
 
     def getSubjectName(self):
         return self.driver.find_element(By.XPATH, self.subjectname)
@@ -145,43 +154,101 @@ class SubjectPage:
     def enterSubjectName(self, subjectname):
         self.getSubjectName().send_keys(subjectname)
 
-    def enterSubjectDescription(self):
-        # Iframes for Subject description
-        # Find Top Frame
-        top_frame = self.driver.find_element(By.XPATH, self.subjectdescription_topframe)
+    def getAttend(self):
+        return self.driver.find_element(By.XPATH, self.attend)
 
-        # Switch to top Frame
-        self.driver.switch_to.frame(top_frame)
+    def enterAttend(self, attend):
+        self.getAttend().send_keys(attend)  # to be clicked to give number of attend
 
-        # edit tinymce frame
+    def getTags(self):
+        return self.driver.find_element(By.XPATH, self.tags)
+
+    def enterTags(self, tags):
+        self.getTags().send_keys(tags)  # to be clicked to give number of tags
+
+    def getIndividualPrice(self):
+        return self.driver.find_element(By.XPATH, self.individualprice)
+
+    def enterIndividualPrice(self, individualprice):
+        self.getIndividualPrice().send_keys(individualprice)
+
+    def getGroupPrice(self):
+        return self.driver.find_element(By.XPATH, self.groupprice)
+
+    def enterGroupPrice(self, groupprice):
+        self.getGroupPrice().send_keys(groupprice)
+
+    def selectFile(self):
+        subjectpicture = self.driver.find_element(By.XPATH, self.subjectpicture)
+        subjectpicture.send_keys(self.picture)
+        time.sleep(5)
+
+    # def enterSubjectDescription(self):
+    #     # Iframes for Subject description
+    #     # Find Top Frame
+    #     top_frame = self.driver.find_element(By.XPATH, self.subjectdescription_topframe)
+    #
+    #     # Switch to top Frame
+    #     self.driver.switch_to.frame(top_frame)
+    #
+    #     # edit tinymce frame
+    #     mce_edit = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit)
+    #
+    #     # Switch to mce_fra
+    #     mce_edit.clear()
+    #     mce_edit.send_keys(subjectdescription)
+    #
+    #     # Back to Parent frame
+    #     self.driver.switch_to.default_content()
+
+    # def enterSubjectHighlights(self):
+    #     # Iframes SubjectHighlights
+    #     top_frame1 = self.driver.find_element(By.XPATH, self.subjecthighlights_topframe1)
+    #
+    #     # Switch to top Frame
+    #     self.driver.switch_to.frame(top_frame1)
+    #     # edit tinymce frame
+    #     mce_edit1 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit1)
+    #
+    #     # Switch to mce_frame
+    #     mce_edit1.clear()
+    #     mce_edit1.send_keys(subjectHighlights)
+    #
+    #     # Back to Parent frame
+    #     self.driver.switch_to.default_content()
+
+    # SubjectDescription
+    def getTopFrame(self):
+        topframe = self.driver.find_element(By.XPATH, self.subjectdescription_topframe)
+        self.driver.switch_to.frame(topframe)
+
+    def getMceEdit(self, subjectdescription):
         mce_edit = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit)
-
-        # Switch to mce_fra
         mce_edit.clear()
         mce_edit.send_keys(subjectdescription)
+        time.sleep(5)
 
-        # Back to Parent frame
-        driver.switch_to.default_content()
+    def switchToDefault(self):
+        self.driver.switch_to.default_content()
+        time.sleep(5)
 
-    def enterSubjectHighlights(self):
-        # Iframes SubjectHighlights
-        top_frame1 = self.driver.find_element(By.XPATH, self.subjecthighlights_topframe1)
+    # Subjecthighlight
+    def getTopFrame1(self):
+        topframe1 = self.driver.find_element(By.XPATH, self.subjecthighlights_topframe1)
+        self.driver.switch_to.frame(topframe1)
 
-        # Switch to top Frame
-        self.driver.switch_to.frame(top_frame1)
-        # edit tinymce frame
+    def getMceEdit1(self, subjectHighlights):
         mce_edit1 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit1)
-
-        # Switch to mce_frame
         mce_edit1.clear()
         mce_edit1.send_keys(subjectHighlights)
+        time.sleep(5)
 
-        # Back to Parent frame
+    def switchToDefault1(self):
         self.driver.switch_to.default_content()
 
-    def uploadPicture(self):
-        subjectpicture = self.driver.find_element(By.XPATH, self.subjectpicture)
-        subjectpicture.send_keys("picture")
+    # def selectFile(self):
+    #     file = self.driver.find_element(By.XPATH, self.uploadfile)
+    #     file.send_keys(self.Picture)
 
     # for x in range(7):
     # Number of days to be selected - Add,remove days and change time
@@ -196,9 +263,6 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.thursday).click()
         self.driver.find_element(By.XPATH, self.friday).click()
         self.driver.find_element(By.XPATH, self.saturaday).click()
-
-    def enterTags(self):
-        self.driver.find_element(By.XPATH, self.tags).send_keys(tags)  # to be clicked to give number of tags
 
     # Subject Starttime in Tutoring Tab
 
@@ -216,8 +280,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index0EndAMPM).send_keys("EndAMPM")
         # Index=1
         self.driver.find_element(By.XPATH, self.index1StartClick).click()
-        self.driver.find_element(By.XPATH, self.index1Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index1Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index1StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index1StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index1StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index1EndClick).click()
         self.driver.find_element(By.XPATH, self.index1EndtimeHour).send_keys("EndtimeHour")
@@ -225,8 +289,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index1EndAMPM).send_keys("EndAMPM")
         # Index=2
         self.driver.find_element(By.XPATH, self.index2StartClick).click()
-        self.driver.find_element(By.XPATH, self.index2Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index2Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index2StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index2StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index2StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index2EndClick).click()
         self.driver.find_element(By.XPATH, self.index2EndtimeHour).send_keys("EndtimeHour")
@@ -234,8 +298,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index2EndAMPM).send_keys("EndAMPM")
         # Index=3
         self.driver.find_element(By.XPATH, self.index3StartClick).click()
-        self.driver.find_element(By.XPATH, self.index3Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index3Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index3StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index3StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index3StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index3EndClick).click()
         self.driver.find_element(By.XPATH, self.index3EndtimeHour).send_keys("EndtimeHour")
@@ -243,8 +307,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index3EndAMPM).send_keys("EndAMPM")
         # Index=4
         self.driver.find_element(By.XPATH, self.index4StartClick).click()
-        self.driver.find_element(By.XPATH, self.index4Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index4Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index4StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index4StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index4StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index4EndClick).click()
         self.driver.find_element(By.XPATH, self.index4EndtimeHour).send_keys("EndtimeHour")
@@ -252,8 +316,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index4EndAMPM).send_keys("EndAMPM")
         # Index=5
         self.driver.find_element(By.XPATH, self.index5StartClick).click()
-        self.driver.find_element(By.XPATH, self.index5Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index5Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index5StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index5StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index5StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index5EndClick).click()
         self.driver.find_element(By.XPATH, self.index5EndtimeHour).send_keys("EndtimeHour")
@@ -261,8 +325,8 @@ class SubjectPage:
         self.driver.find_element(By.XPATH, self.index5EndAMPM).send_keys("EndAMPM")
         # Index=6
         self.driver.find_element(By.XPATH, self.index6StartClick).click()
-        self.driver.find_element(By.XPATH, self.index6Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index6Starttimemin).send_keys("StarttimeMin")
+        self.driver.find_element(By.XPATH, self.index6StarttimeHour).send_keys("StarttimeHour")
+        self.driver.find_element(By.XPATH, self.index6StarttimeMin).send_keys("StarttimeMin")
         self.driver.find_element(By.XPATH, self.index6StartAMPM).send_keys("StartAMPM")
         self.driver.find_element(By.XPATH, self.index6EndClick).click()
         self.driver.find_element(By.XPATH, self.index6EndtimeHour).send_keys("EndtimeHour")
@@ -271,15 +335,6 @@ class SubjectPage:
 
         # update the data
 
-    def enterAttend(self):
-        self.driver.find_element(By.XPATH, self.attend).send_keys(attend)  # to be clicked to give number of attend
-
-    def enterIndividualPrice(self):
-        self.driver.find_element(By.XPATH, self.individualprice).send_keys(500)
-
-    def enterGroupPrice(self):
-        self.driver.find_element(By.XPATH, self.groupprice).send_keys(1000)
-
         # Button XPATH
 
     def saveButton(self):
@@ -287,3 +342,9 @@ class SubjectPage:
 
     def previewButton(self):
         self.driver.find_element(By.XPATH, self.preview).click()
+
+    def submitSubject(self):
+        self.driver.find_element(By.XPATH, self.submitsubject).click()
+
+    def backButton(self):
+        self.driver.find_element(By.XPATH, self.backbutton).click()
