@@ -1,11 +1,18 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import time
 
 
 class AddSubjectPage:
     # Add Subject in My Home page
-    addsubject = "//div[text()='Add Subject']"
+    addsubjecthomepage = "//div[text()='Add Subject']"
+
+    # Add Subject in tutoring page
+    addsubject_tutoringpage = "//div[@id='add-subject-cta-btn']"
+
+    # Tutoring Tab
+    tutoringtab = "//h2[@id='tutor-top-nav']"
 
     # Textbox - XPATH Tutoring - Subject Information page
 
@@ -16,10 +23,10 @@ class AddSubjectPage:
     groupprice = "//input[@placeholder='e.g: 300']"
 
     # iFrame - XPATH Tutoring - Subject Information page
-    subjectdescription_topframe = "//iframe[@title='Rich Text Area'])[1]"
-    subjectdescription_mceedit = "//body[@class='mce-content-body ']"
-    subjecthighlights_topframe1 = "//iframe[@title='Rich Text Area'])[2]"
-    subjectdescription_mceedit1 = "//body[@class='mce-content-body ']"
+    subjectdescription_topframe = "(//iframe[@title='Rich Text Area'])[1]"
+    subjectdescription_mceedit = "//body[@data-mce-placeholder='Write your subject description must be minimum of 30 words and maximum of 200 words']"
+    subjecthighlights_topframe1 = "(//iframe[@title='Rich Text Area'])[2]"
+    subjectdescription_mceedit1 = "//body[@data-mce-placeholder='Write the subject highlights/modules point wise, must be minimum of 15 words and maximum of 100 words']"
 
     # Picture XPATH Tutoring - Subject Information page
     subjectpicture = "//input[@id='event-images']"
@@ -32,7 +39,7 @@ class AddSubjectPage:
     backbutton = "//span[@class='hidden text-sm font-bold lg:text-base lg:flex']"
 
     # Dropdown XPATH -Tutoring - Subject Information page
-    availability = "(//div[contains(@class,'border rounded-lg border-border_inputs undefined')])[1]"
+    availabilitydays = "(//div[contains(@class,'border rounded-lg border-border_inputs undefined')])[1]"
     # actions = ActionChains(self.driver)
     # actions.move_to_element(availability).perform()
     sunday = "(//label[@for='sunday-availability'])[1]"
@@ -43,21 +50,21 @@ class AddSubjectPage:
     friday = "(//label[@for='friday-availability-5'])[1]"
     saturaday = "(//label[@for='saturday-availability-6'])[1]"
 
-    availability1 = "//h2[@class='mb-2 text-base font-bold is-imp']"
+    availabilitytime = "//h2[@class='mb-2 text-base font-bold is-imp']"
     # actions = ActionChains(self.driver)
     # actions.move_to_element(availability1).perform()
 
     # Index 0 XPATH - SUNDAY Start time selection
     index0StartClick = "(//input[@id='sunday-0-3'])[1]"
-    index0Starttimehour = "(//input[contains(@aria-label,'Hour')])[1]"
-    index0Starttimemin = "(//input[contains(@aria-label,'Minute')])[1]"
-    index0StartAMPM = "/html[1]/body[1]/div[8]/div[1]/span[2]"
+    index0Starttimehour = "(//input[@aria-label='Hour'])[1]"
+    index0Starttimemin = "(//input[@aria-label='Minute'])[1]"
+    index0StartAMPM = "(//span[@title='Click to toggle'][normalize-space()='PM'])[1]"
 
     # Index 0 XPATH - SUNDAY End time selection
     index0EndClick = "(//input[@id='sunday-0-4'])[1]"
-    index0EndtimeHour = "(//input[contains(@aria-label,'Hour')])[2]"
-    index0EndtimeMin = "(//input[contains(@aria-label,'Minute')])[2]"
-    index0EndAMPM = "/html[1]/body[1]/div[9]/div[1]/span[2]"
+    index0EndtimeHour = "(//input[@aria-label='Hour'])[2]"
+    index0EndtimeMin = "(//input[@aria-label='Minute'])[2]"
+    index0EndAMPM = "(//span[@title='Click to toggle'][normalize-space()='PM'])[1]"
 
     # index=1 XPATH - MONDAY Start time selection
     index1StartClick = "(//input[@id='monday-1-3'])[1]"
@@ -133,20 +140,26 @@ class AddSubjectPage:
     index6EndtimeMin = "(//input[contains(@aria-label,'Minute')])[14]"
     index6EndAMPM = "/html[1]/body[1]/div[33]/div[1]/span[2]"
 
-    # Price Selection XPATH
+    Maxsubject = "// b[text() = 'Maximum number of subjects added']"
+    Maximumsubadded = "// b[text() = 'Maximum number of subjects added']"
 
-    # individualprice = "//input[@placeholder='e.g: 500']"
-    # groupprice = "//input[@placeholder='e.g: 300']"
-    #
-    # # Button XPATH
-    # save = "//button[normalize-space()='Save']"
-    # preview = "//button[normalize-space()='Preview']"
+    # Edit Subject
+    editsubject = "// p[text() = 'Edit']"
+
+    # Delete Subject
+    deletesubject = "(//p[contains(text(),'Delete')])[1]"
 
     def __init__(self, driver):
         self.driver = driver
 
+    def maxSubject(self):
+        if Maxsubject == Maximumsubadded:
+            print("You can add a maximum of 5 subjects")
+        else:
+            addsubject = self.driver.find_element(By.XPATH, "//div[@id='add-subject-cta-btn']").click()
+
     def clickaddSubject(self):
-        self.driver.find_element(By.XPATH, self.addsubject).click()
+        self.driver.find_element(By.XPATH, self.addsubjecthomepage).click()
 
     def getSubjectName(self):
         return self.driver.find_element(By.XPATH, self.subjectname)
@@ -181,41 +194,6 @@ class AddSubjectPage:
     def selectFile(self):
         subjectpicture = self.driver.find_element(By.XPATH, self.subjectpicture)
         subjectpicture.send_keys(self.picture)
-        time.sleep(5)
-
-    # def enterSubjectDescription(self):
-    #     # Iframes for Subject description
-    #     # Find Top Frame
-    #     top_frame = self.driver.find_element(By.XPATH, self.subjectdescription_topframe)
-    #
-    #     # Switch to top Frame
-    #     self.driver.switch_to.frame(top_frame)
-    #
-    #     # edit tinymce frame
-    #     mce_edit = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit)
-    #
-    #     # Switch to mce_fra
-    #     mce_edit.clear()
-    #     mce_edit.send_keys(subjectdescription)
-    #
-    #     # Back to Parent frame
-    #     self.driver.switch_to.default_content()
-
-    # def enterSubjectHighlights(self):
-    #     # Iframes SubjectHighlights
-    #     top_frame1 = self.driver.find_element(By.XPATH, self.subjecthighlights_topframe1)
-    #
-    #     # Switch to top Frame
-    #     self.driver.switch_to.frame(top_frame1)
-    #     # edit tinymce frame
-    #     mce_edit1 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit1)
-    #
-    #     # Switch to mce_frame
-    #     mce_edit1.clear()
-    #     mce_edit1.send_keys(subjectHighlights)
-    #
-    #     # Back to Parent frame
-    #     self.driver.switch_to.default_content()
 
     # SubjectDescription
     def getTopFrame(self):
@@ -223,14 +201,12 @@ class AddSubjectPage:
         self.driver.switch_to.frame(topframe)
 
     def getMceEdit(self, subjectdescription):
-        mce_edit = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit)
-        mce_edit.clear()
-        mce_edit.send_keys(subjectdescription)
-        time.sleep(5)
+        mce_edit1 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit)
+        mce_edit1.clear()
+        mce_edit1.send_keys(subjectdescription)
 
     def switchToDefault(self):
         self.driver.switch_to.default_content()
-        time.sleep(5)
 
     # Subjecthighlight
     def getTopFrame1(self):
@@ -238,107 +214,163 @@ class AddSubjectPage:
         self.driver.switch_to.frame(topframe1)
 
     def getMceEdit1(self, subjectHighlights):
-        mce_edit1 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit1)
-        mce_edit1.clear()
-        mce_edit1.send_keys(subjectHighlights)
-        time.sleep(5)
+        mce_edit2 = self.driver.find_element(By.XPATH, self.subjectdescription_mceedit1)
+        mce_edit2.clear()
+        mce_edit2.send_keys(subjectHighlights)
 
     def switchToDefault1(self):
         self.driver.switch_to.default_content()
 
-    # def selectFile(self):
-    #     file = self.driver.find_element(By.XPATH, self.uploadfile)
-    #     file.send_keys(self.Picture)
+    def selectAvailabilitydays(self):
+        # identify element
+        availabilitydays = self.driver.find_element(By.XPATH, self.availabilitydays)
+        achains = ActionChains(self.driver)
+        achains.move_to_element(availabilitydays).perform()
+        self.driver.find_element(By.XPATH, self.sunday).click()
+        # self.driver.find_element(By.XPATH, self.monday).click()
+        # self.driver.find_element(By.XPATH, self.tuesday).click()
+        # self.driver.find_element(By.XPATH, self.wednesday).click()
+        # self.driver.find_element(By.XPATH, self.thursday).click()
+        # self.driver.find_element(By.XPATH, self.friday).click()
+        # self.driver.find_element(By.XPATH, self.saturaday).click()
 
-    # for x in range(7):
-    # Number of days to be selected - Add,remove days and change time
-    def enterAvailability(self):
-        availability = self.driver.find_element(By.XPATH, self.availability)
+    def startavailabilitytime(self):
+        availability = self.driver.find_element(By.XPATH, self.availabilitytime)
         actions = ActionChains(self.driver)
         actions.move_to_element(availability).perform()
-        self.driver.find_element(By.XPATH, self.sunday).click()
-        self.driver.find_element(By.XPATH, self.monday).click()
-        self.driver.find_element(By.XPATH, self.tuesday).click()
-        self.driver.find_element(By.XPATH, self.wednesday).click()
-        self.driver.find_element(By.XPATH, self.thursday).click()
-        self.driver.find_element(By.XPATH, self.friday).click()
-        self.driver.find_element(By.XPATH, self.saturaday).click()
+        # self.driver.find_element(By.XPATH, self.availabilitytime)
+        # self.driver.find_element(By.XPATH, self.index0StartClick).click()
+        # self.driver.find_element(By.XPATH, self.index0Starttimehour).send_keys(StarttimeHour)
+        # self.driver.find_element(By.XPATH, self.index0Starttimemin).send_keys(StarttimeMin)
+        # self.driver.find_element(By.XPATH, self.index0StartAMPM).send_keys(StartAMPM)
 
-    # Subject Starttime in Tutoring Tab
+    def getStartTime(self):
+        return self.driver.find_element(By.XPATH, self.index0StartClick)
 
-    # Index=0
-    def enterAvailability1(self):
-        # Index=0
-        self.driver.find_element(By.XPATH, self.availability1)
-        self.driver.find_element(By.XPATH, self.index0StartClick).click()
-        self.driver.find_element(By.XPATH, self.index0Starttimehour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index0Starttimemin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index0StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index0EndClick).click()
-        self.driver.find_element(By.XPATH, self.index0EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index0EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index0EndAMPM).send_keys("EndAMPM")
-        # Index=1
-        self.driver.find_element(By.XPATH, self.index1StartClick).click()
-        self.driver.find_element(By.XPATH, self.index1StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index1StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index1StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index1EndClick).click()
-        self.driver.find_element(By.XPATH, self.index1EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index1EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index1EndAMPM).send_keys("EndAMPM")
-        # Index=2
-        self.driver.find_element(By.XPATH, self.index2StartClick).click()
-        self.driver.find_element(By.XPATH, self.index2StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index2StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index2StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index2EndClick).click()
-        self.driver.find_element(By.XPATH, self.index2EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index2EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index2EndAMPM).send_keys("EndAMPM")
-        # Index=3
-        self.driver.find_element(By.XPATH, self.index3StartClick).click()
-        self.driver.find_element(By.XPATH, self.index3StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index3StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index3StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index3EndClick).click()
-        self.driver.find_element(By.XPATH, self.index3EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index3EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index3EndAMPM).send_keys("EndAMPM")
-        # Index=4
-        self.driver.find_element(By.XPATH, self.index4StartClick).click()
-        self.driver.find_element(By.XPATH, self.index4StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index4StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index4StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index4EndClick).click()
-        self.driver.find_element(By.XPATH, self.index4EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index4EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index4EndAMPM).send_keys("EndAMPM")
-        # Index=5
-        self.driver.find_element(By.XPATH, self.index5StartClick).click()
-        self.driver.find_element(By.XPATH, self.index5StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index5StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index5StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index5EndClick).click()
-        self.driver.find_element(By.XPATH, self.index5EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index5EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index5EndAMPM).send_keys("EndAMPM")
-        # Index=6
-        self.driver.find_element(By.XPATH, self.index6StartClick).click()
-        self.driver.find_element(By.XPATH, self.index6StarttimeHour).send_keys("StarttimeHour")
-        self.driver.find_element(By.XPATH, self.index6StarttimeMin).send_keys("StarttimeMin")
-        self.driver.find_element(By.XPATH, self.index6StartAMPM).send_keys("StartAMPM")
-        self.driver.find_element(By.XPATH, self.index6EndClick).click()
-        self.driver.find_element(By.XPATH, self.index6EndtimeHour).send_keys("EndtimeHour")
-        self.driver.find_element(By.XPATH, self.index6EndtimeMin).send_keys("EndtimeMin")
-        self.driver.find_element(By.XPATH, self.index6EndAMPM).send_keys("EndAMPM")
+    def getHourStartTime(self):
+        return self.driver.find_element(By.XPATH, self.index0Starttimehour)
 
-        # update the data
+    def getMinStartTime(self):
+        return self.driver.find_element(By.XPATH, self.index0Starttimemin)
 
-        # Button XPATH
+    def getStartAMPM(self):
+        return self.driver.find_element(By.XPATH, self.index0StartAMPM)
+
+    def selectStartTime(self):
+        self.getStartTime().click()
+        # self.log.info("selected EventStartTime")
+
+    def enterGetHourStartTime(self, StarttimeHour):
+        self.getHourStartTime().send_keys(StarttimeHour)
+        # self.log.info("Entered Hourstarttime")
+
+    def enterGetMinStartTime(self, StarttimeMin):
+        self.getMinStartTime().send_keys(StarttimeMin)
+        # self.log.info("Entered Minstarttime")
+
+    def enterStartAMPM(self, StartAMPM):
+        self.getStartAMPM().send_keys(StartAMPM)
+        # self.log.info("Entered Start_AMPM")
+
+    def endavailabilitytime(self):
+        availability1 = self.driver.find_element(By.XPATH, self.availabilitytime)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(availability1).perform()
+        # self.driver.find_element(By.XPATH, self.index0EndClick).click()
+        # self.driver.find_element(By.XPATH, self.index0EndtimeHour).send_keys(EndtimeHour)
+        # self.driver.find_element(By.XPATH, self.index0EndtimeMin).send_keys(EndtimeMin)
+        # self.driver.find_element(By.XPATH, self.index0EndAMPM).send_keys(EndAMPM)
+
+    def getEndTime(self):
+        return self.driver.find_element(By.XPATH, self.index0EndClick)
+
+    def getHourEndTime(self):
+        return self.driver.find_element(By.XPATH, self.index0EndtimeHour)
+
+    def getMinEndTime(self):
+        return self.driver.find_element(By.XPATH, self.index0EndtimeMin)
+
+    def getEndAMPM(self):
+        return self.driver.find_element(By.XPATH, self.index0EndAMPM)
+
+    def selectEndTime(self):
+        self.getEndTime().click()
+        time.sleep(3)
+        # self.log.info("selected EventEndTime")
+
+    def enterGetHourEndTime(self, EndtimeHour):
+        self.getHourEndTime().send_keys(EndtimeHour)
+        # self.log.info("Entered Hourstarttime")
+
+    def enterGetMinEndTime(self, EndtimeMin):
+        self.getMinEndTime().send_keys(EndtimeMin)
+        # self.log.info("Entered Minstarttime")
+
+    def enterEndAMPM(self, EndAMPM):
+        self.getEndAMPM().send_keys(EndAMPM)
+
+    # Index=1
+    # self.driver.find_element(By.XPATH, self.index1StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index1StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index1StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index1StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index1EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index1EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index1EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index1EndAMPM).send_keys(EndAMPM)
+    # # Index=2
+    # self.driver.find_element(By.XPATH, self.index2StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index2StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index2StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index2StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index2EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index2EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index2EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index2EndAMPM).send_keys(EndAMPM)
+    # # Index=3
+    # self.driver.find_element(By.XPATH, self.index3StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index3StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index3StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index3StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index3EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index3EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index3EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index3EndAMPM).send_keys(EndAMPM)
+    # # Index=4
+    # self.driver.find_element(By.XPATH, self.index4StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index4StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index4StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index4StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index4EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index4EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index4EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index4EndAMPM).send_keys(EndAMPM)
+    # # Index=5
+    # self.driver.find_element(By.XPATH, self.index5StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index5StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index5StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index5StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index5EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index5EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index5EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index5EndAMPM).send_keys(EndAMPM)
+    # # Index=6
+    # self.driver.find_element(By.XPATH, self.index6StartClick).click()
+    # self.driver.find_element(By.XPATH, self.index6StarttimeHour).send_keys(StarttimeHour)
+    # self.driver.find_element(By.XPATH, self.index6StarttimeMin).send_keys(StarttimeMin)
+    # self.driver.find_element(By.XPATH, self.index6StartAMPM).send_keys(StartAMPM)
+    # self.driver.find_element(By.XPATH, self.index6EndClick).click()
+    # self.driver.find_element(By.XPATH, self.index6EndtimeHour).send_keys(EndtimeHour)
+    # self.driver.find_element(By.XPATH, self.index6EndtimeMin).send_keys(EndtimeMin)
+    # self.driver.find_element(By.XPATH, self.index6EndAMPM).send_keys(EndAMPM)
+
+    # update the data
+
+    # Button XPATH
 
     def saveButton(self):
         self.driver.find_element(By.XPATH, self.save).click()
+        time.sleep(5)
 
     def previewButton(self):
         self.driver.find_element(By.XPATH, self.preview).click()
@@ -348,3 +380,17 @@ class AddSubjectPage:
 
     def backButton(self):
         self.driver.find_element(By.XPATH, self.backbutton).click()
+
+    # Edit Subject
+    def addSubjecttut(self):
+        addsubjecttut = self.driver.find_element(By.XPATH, addsubject_tutoringpage).click()
+
+    def editSubject(self):
+        editsubject1 = self.driver.find_element(By.XPATH, editsubject).click()
+
+    def tutoringTab(self):
+        tutoringtab1 = self.driver.find_element(By.XPATH, tutoringtab).click()
+
+    # Delete Subject
+    def deleteSubject(self):
+        deletesubject1 = self.driver.find_element(By.XPATH, deletesubject).click()

@@ -34,8 +34,11 @@ class AddEventsPage:
 
     ########### Event information #############
 
-    offline = "//button[text()='Offline']"
-    online = "//button[text()='Online']"
+    offlineselected = "//div[contains(@class,'w-4 h-4 rounded-full cursor-pointer focus:outline-none border-4 border-logo_blue bg-white')]"
+    onlineselected = "//div[contains(@class,'w-4 h-4 rounded-full cursor-pointer focus:outline-none border-4 border-logo_blue bg-white')]"
+
+    Onlinenonselected = "//div[contains(@class,'w-4 h-4 rounded-full cursor-pointer focus:outline-none border-2 border-gray-300 bg-white')]"
+    Offlineonselected = "//div[contains(@class,'w-4 h-4 rounded-full cursor-pointer focus:outline-none border-2 border-gray-300 bg-white')]"
 
     eventcategory = "//div[normalize-space()='Sports']"
     category = "(//div[@class='capitalize text-gray-500 font-semibold'])[1]"
