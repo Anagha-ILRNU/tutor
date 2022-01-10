@@ -17,6 +17,18 @@ class CreateSessionPage:
     rdb_liveTutoring = "(//input[@id='liveTutoring'])[1]"
     rdb_inPersonTutoring = "(//input[@id='inPersonTutoring'])[1]"
 
+    drp_sessionTimeZone = "(//select[@class='w-full px-2 py-2 mt-2 mr-2 bg-gray-200 rounded-md lg:w-108 focus:outline-none'])[1]"
+    sessionTimeZone = "(//option[@value='Asia/Kolkata'])[1]"
+
+    sessiondate = "(//input[@id='new_date_component'])[1]"
+    sel_sessionmonth = "(//select[@aria-label='Month'])[1]"
+    sel_sessionyear = "(//input[@aria-label='Year'])[1]"
+    sel_sessionday = "(//div[@class='dayContainer'])[1]"
+    sessiontime = "(//input[@id='new_time_component'])[1]"
+    sel_sessionhour = "(//input[@aria-label='Hour'])[1]"
+    sel_sessionmin = "(//input[@aria-label='Minute'])[1]"
+    sel_sessionAMPM = "(//span[normalize-space()='AM'])[1]"
+
     # Enter Address details for inpersontutoring
     btn_address = "(//div[@class='flex flex-col items-center justify-center m-2 border rounded-lg cursor-pointer w-60 h-44'])[1]"
     btn_change = "(//span[@class='text-red-400 cursor-pointer hover:text-red-500'])[1]"
@@ -28,7 +40,6 @@ class CreateSessionPage:
     txt_landmark = "(//input[@id='landmarkArea'])[1]"
     btn_save = "(//button[normalize-space()='save'])[1]"
 
-    drp_sessionTimeZone = "(//select[@class='w-full px-2 py-2 mt-2 mr-2 bg-gray-200 rounded-md lg:w-108 focus:outline-none'])[1]"
     sel_sessiondate = "(//input[@id='new_date_component'])[1]"
     drp_month = "(//select[@aria-label='Month'])[1]"
     drp_year = "(//input[@aria-label='Year'])[1]"
@@ -56,7 +67,7 @@ class CreateSessionPage:
     sel_repeatyear = "(//div[@class='numInputWrapper'])[9]"
     rdb_endafter = "(//input[@name='recur_mode'])[2]"
     sel_repeatEvery1 = "(//input[@value='2'])[1]"
-    sel_Ok = "(//div[@class='text-base font-medium cursor-pointer text-logo_blue'])[1]"
+    clk_Ok = "(//div[@class='text-base font-medium cursor-pointer text-logo_blue'])[1]"
 
     txt_addStudent = "(//input[@name='newStudent'])[1]"
     btn_addStudent = "(//button[@class='w-20 py-2 font-bold text-session_btn focus:outline-none'])[1]"
@@ -65,189 +76,208 @@ class CreateSessionPage:
         self.driver = driver
 
     def clkcreateSessionHome(self):
-        self.driver.find_element(By.XPATH, "btn_createSessionHome").click()
+        self.driver.find_element(By.XPATH, self.btn_createSessionHome).click()
 
     def clkcreateSessionTutoring(self):
-        self.driver.find_element(By.XPATH, "btn_createSessionTutoring").click()
+        self.driver.find_element(By.XPATH, self.btn_createSessionTutoring).click()
 
+    # Session Information
     def drpsubjectName(self):
-        self.driver.find_element(By.XPATH, "drp_subjectName").click()
+        self.driver.find_element(By.XPATH, self.drp_subjectName).click()
 
     def txtsessionTitle(self):
-        self.driver.find_element(By.XPATH, "txt_sessionTitle").click()
+        self.driver.find_element(By.XPATH, self.txt_sessionTitle).click()
 
+    def enterSessionTitle(self, title):
+        self.txtsessionTitle.send_keys(title)
+
+    # Session Type
     def rdbliveTutoring(self):
-        self.driver.find_element(By.XPATH, "rdb_liveTutoring").click()
+        self.driver.find_element(By.XPATH, self.rdb_liveTutoring).click()
 
     def rdbinPersonTutoring(self):
-        self.driver.find_element(By.XPATH, "rdb_inPersonTutoring").click()
+        self.driver.find_element(By.XPATH, self.inPersonTutoring).click()
 
-    # Address details for Tutoring
-
+    # Address details for inPersonTutoring
     def btnaddress(self):
-        self.driver.find_element(By.XPATH, "btn_address").click()
+        self.driver.find_element(By.XPATH, self.btn_address).click()
 
     def btnchange(self):
-        self.driver.find_element(By.XPATH, "btn_change").click()
+        self.driver.find_element(By.XPATH, self.btn_change).click()
 
     def txtsearchArea(self):
-        return self.driver.find_element(By.XPATH, "txt_searchArea").click()
+        return self.driver.find_element(By.XPATH, self.txt_searchArea).click()
 
     def entertxtsearchArea(self, searchArea):
         self.txtsearcharea.send_keys(searchArea)
 
     def selselectAddress(self):
-        self.driver.find_element(By.XPATH, "sel_selectAddress").click()
+        self.driver.find_element(By.XPATH, self.sel_selectAddress).click()
 
     def confirmlocation(self):
-        self.driver.find_element(By.XPATH, "confirmLocation").click()
+        self.driver.find_element(By.XPATH, self.confirmLocation).click()
 
     def txtaddressTitle(self):
-        self.driver.find_element(By.XPATH, "txt_addressTitle").click()
+        self.driver.find_element(By.XPATH, self.txt_addressTitle).click()
 
     def enteraddressTitle(self, addressTitle):
         self.txtaddressTitle.send_keys(addressTitle)
 
     def txthouseFlat(self):
-        self.driver.find_element(By.XPATH, "txt_houseFlat").click()
+        self.driver.find_element(By.XPATH, self.txt_houseFlat).click()
 
     def enterhouseFlat(self, houseFlat):
         self.txthouseFlat.send_keys(houseFlat)
 
     def txtlandmark(self):
-        self.driver.find_element(By.XPATH, "txt_landmark").click()
+        self.driver.find_element(By.XPATH, self.txt_landmark).click()
 
     def enterlandmark(self, landmark):
         self.txtlandmark.send_keys(landmark)
 
     def btnsave(self):
-        self.driver.find_element(By.XPATH, "btn_save").click()
+        self.driver.find_element(By.XPATH, self.btn_save).click()
 
-    def drpsessionTimeZone(self):
-        self.driver.find_element(By.XPATH, "drp_sessionTimeZone").click()
+    # Session Timezone
 
-    def selsessiondate(self):
-        self.driver.find_element(By.XPATH, "sel_sessiondate").click()
+    def selsessionTimeZone(self):
+        self.driver.find_element(By.XPATH, self.drp_sessionTimeZone).click()
 
-    def drpmonth(self):
-        self.driver.find_element(By.XPATH, "drp_month").click()
+    def entersessiontimeZone(self, sessionTimeZone):
+        self.sessionTimeZone.send_keys(sessionTimeZone)
 
-    def entermonth(self, month):
-        self.drpmonth.send_keys(month)
+    # Session date and time
+    def sessionDate(self):
+        self.driver.find_element(By.XPATH, self.sessiondate).click()
 
-    def drpyear(self):
-        self.driver.find_element(By.XPATH, "drp_sessionTimeZone").click()
+    def sel_sessionMonth(self,sel_sessionmonth):
+        self.sessionDate.send_keys(sel_sessionmonth)
 
-    def enteryear(self, year):
-        self.drpyear.send_keys(year)
+    def sel_sessionYear(self,sel_sessionyear):
+        self.sessionDate.send_keys(sel_sessionyear)
 
-    def selselectDate(self, selectDate):
-        self.driver.find_element(By.XPATH, "drp_sessionTimeZone").send_keys(selectDate)
+    def sel_sessionDay(self,sel_sessionday):
+        self.sessionDate.send_keys(sel_sessionday)
+
+    def sessionTime(self):
+        self.driver.find_element(By.XPATH, self.sessiontime).click()
+
+    def sel_sessionHour(self,sel_sessionhour):
+        self.sessionDate.send_keys(sel_sessionhour)
+
+    def sel_sessionMin(self,sel_sessionmin):
+        self.sessionDate.send_keys(sel_sessionmin)
+
+    def sel_sessionAmPm(self,sel_sessionAMPM):
+        self.sessionDate.send_keys(sel_sessionAMPM)
 
     def drpsessionduration(self):
-        self.driver.find_element(By.XPATH, "drp_sessionduration").click()
+        self.driver.find_element(By.XPATH, self.drp_sessionduration).click()
 
     def entersessionduration(self, sessionduration):
         self.drpsessionduration.send_keys(sessionduration)
 
+    # Select Session Recurrence
     def selsessionRecurrence(self):
-        self.driver.find_element(By.XPATH, "sel_sessionRecurrence").click()
+        self.driver.find_element(By.XPATH, self.sel_sessionRecurrence).click()
 
     def selrepeatEvery(self):
-        self.driver.find_element(By.XPATH, "sel_repeatEvery").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatEvery).click()
 
-    def enterrepeatEvery(self,repeatEvery):
+    def enterrepeatEvery(self, repeatEvery):
         self.selrepeatEvery.send_keys(repeatEvery)
 
     def selrepeatEveryWeek(self):
-        self.driver.find_element(By.XPATH, "sel_repeatEveryWeek").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatEveryWeek).click()
 
-    def enterrepeatEveryWeek(self,repeatEveryWeek):
+    def enterrepeatEveryWeek(self, repeatEveryWeek):
         self.selrepeatEveryWeek.send_keys(repeatEveryWeek)
 
     def selrepeatEveryday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatEveryday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatEveryday).click()
 
-    def enterrepeatEveryday(self,repeatEveryday):
+    def enterrepeatEveryday(self, repeatEveryday):
         self.selrepeatEveryday.send_keys(repeatEveryday)
 
     def selsessionRecurrence1(self):
-        self.driver.find_element(By.XPATH, "sel_sessionRecurrence1").click()
+        self.driver.find_element(By.XPATH, self.sel_sessionRecurrence1).click()
 
     def selrepeatonSunday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonSunday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonSunday).click()
 
-    def enterrepeatonSunday(self,Sunday):
+    def enterrepeatonSunday(self, Sunday):
         self.selrepeatonSunday.send_keys(Sunday)
 
     def selrepeatonMonday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonMonday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonMonday).click()
 
-    def enterrepeatonMonday(self,Monday):
+    def enterrepeatonMonday(self, Monday):
         self.selrepeatonMonday.send_keys(Monday)
 
     def selrepeatonTuesday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonTuesday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonTuesday).click()
 
-    def enterrepeatonTuesday(self,Tuesday):
+    def enterrepeatonTuesday(self, Tuesday):
         self.selrepeatonTuesday.send_keys(Tuesday)
 
     def selrepeatonWednesday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonWednesday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonWednesday).click()
 
     def enterrepeatonWednesday(self, Wednesday):
         self.selrepeatonWednesday.send_keys(Wednesday)
 
     def selrepeatonThursday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonThursday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonThursday).click()
 
     def enterrepeatonThursday(self, Thursday):
         self.selrepeatonThursday.send_keys(Thursday)
 
     def selrepeatonFriday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonFriday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonFriday).click()
 
     def enterrepeatonFriday(self, Friday):
         self.selrepeatonFriday.send_keys(Friday)
 
     def selrepeatonSaturaday(self):
-        self.driver.find_element(By.XPATH, "sel_repeatonSaturaday").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatonSaturaday).click()
 
     def enterrepeatonSaturaday(self, Saturaday):
         self.selrepeatonSaturaday.send_keys(Saturaday)
 
     def rdbendOn(self):
-        self.driver.find_element(By.XPATH, "rdb_endOn").click()
+        self.driver.find_element(By.XPATH, self.rdb_endOn).click()
 
     def selrepeatMonth(self):
-        self.driver.find_element(By.XPATH, "sel_repeatMonth").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatMonth).click()
 
     def enterrepeatMonth(self, month):
         self.selrepeatMonth.send_keys(month)
 
     def selrepeatyear(self):
-        self.driver.find_element(By.XPATH, "sel_repeatyear").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatyear).click()
 
     def enterrepeatyear(self, year):
         self.selrepeatyear.send_keys(year)
 
     def rdbendafter(self):
-        self.driver.find_element(By.XPATH, "rdb_endafter").click()
+        self.driver.find_element(By.XPATH, self.rdb_endafter).click()
 
     def selrepeatEvery1(self):
-        self.driver.find_element(By.XPATH, "sel_repeatEvery1").click()
+        self.driver.find_element(By.XPATH, self.sel_repeatEvery1).click()
 
     def enterrepeatEvery1(self, occurrences):
         self.selrepeatEvery1.send_keys(occurrences)
 
     def selOk(self):
-        self.driver.find_element(By.XPATH, "sel_Ok").click()
+        self.driver.find_element(By.XPATH, self.sel_Ok).click()
 
+    # Add a Student
     def txtaddStudent(self):
-        self.driver.find_element(By.XPATH, "txt_addStudent").click()
+        self.driver.find_element(By.XPATH, self.txt_addStudent).click()
 
     def btnaddStudent(self):
-        self.driver.find_element(By.XPATH, "btn_addStudent").click()
+        self.driver.find_element(By.XPATH, self.btn_addStudent).click()
 
-
+    def addStudent(self,studentemail):
+        self.btnaddStudent.send_keys(studentemail)
 
